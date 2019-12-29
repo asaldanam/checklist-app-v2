@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="button/facebook" transform="translate(-24.000000, -10.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Stacked-Group" transform="translate(24.000000, 10.000000)">
+                <path d="M13.2514447,10.0351746 L10,10.0351746 L10,13.9461304 L13.2514447,13.9461304 L13.2514447,16.8303146 C13.2514447,20.1774441 15.2195499,22 18.0944437,22 C19.4714536,22 20.6550464,21.8934876 21,21.8459115 L21,21.8459115 L21,18.3479946 L19.0059999,18.3470236 C17.4425842,18.3470236 17.1398851,17.5754157 17.1398851,16.4431028 L17.1398851,16.4431028 L17.1398851,13.9461304 L20.8686559,13.9461304 L20.3831033,10.0351746 L17.1398851,10.0351746 L17.1398851,0 L24.5650429,0 C25.3574354,0 26,0.642559808 26,1.43494633 L26,24.5649563 C26,25.357635 25.3574354,26 24.5650429,26 L1.43495708,26 C0.642272371,26 0,25.357635 0,24.5649563 L0,1.43494633 C0,0.642559808 0.642272371,0 1.43495708,0 L13.2514447,0 L13.2514447,10.0351746 Z" id="Combined-Shape" transform="translate(13.000000, 13.000000) scale(1, -1) translate(-13.000000, -13.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

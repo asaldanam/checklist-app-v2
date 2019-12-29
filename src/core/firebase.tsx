@@ -17,7 +17,7 @@ const firebaseConfig = {
 export const initFirebase = () => firebase.initializeApp(firebaseConfig);
 export const initFirestore = () => firebase.firestore().enablePersistence()
   .then((response) => {
-    console.log('enablePersistence')
+    // console.log('enablePersistence')
   })
   .catch(function (err: any) {
     console.error(err);

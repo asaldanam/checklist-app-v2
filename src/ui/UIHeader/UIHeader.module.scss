@@ -1,0 +1,30 @@
+@import 'styles/tools';
+
+.wrapper {
+  background-color: $color-pri;
+  color: white;
+}
+
+.convexEndContainer {
+  height: 3rem;
+  position: relative;
+  overflow-x: hidden;
+  top: -1.125rem;
+} 
+
+.convexEnd {
+  background-color: $color-pri;
+  border-radius: 50%;
+  height: 6rem;
+  width: 150%;
+  left: -25%;
+  position: absolute;
+  top: -4rem;
+  z-index: 1;
+}
+
+.convexEndContent {
+  z-index: 2;
+  position: relative;
+  color: white;
+}

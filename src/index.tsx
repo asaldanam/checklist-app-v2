@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { initFirestore, initFirebase } from './core/firebase';
+import { initializeIcons } from '@uifabric/icons';
 
 initFirebase();
 initFirestore();
+initializeIcons();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
