@@ -17,9 +17,9 @@ module.exports = plop => {
         // Add a new file
         type: 'add',
         // Path for the new file
-        path: 'src/components/{{pascalCase name}}.js',
+        path: 'src/components/UI{{pascalCase name}}/index.tsx',
         // Handlebars template used to generate content of new file
-        templateFile: 'plop-templates/Component.js.hbs',
+        templateFile: 'plop-templates/Component.tsx.hbs',
       },
     ],
   });

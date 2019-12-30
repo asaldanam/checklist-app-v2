@@ -7,6 +7,7 @@ import UIToolbar from 'components/UIToolbar/UIToolbar';
 import UIInput from 'components/UIInput/UIInput';
 import UIContent from 'components/UIContent';
 import { useSpring, animated, config } from 'react-spring';
+import UIListItem from 'components/UIListItem';
 
 const ViewSignIn: React.FC = () => {
   const history = useHistory();
@@ -31,8 +32,10 @@ const ViewSignIn: React.FC = () => {
         </animated.div>
       </UIHeader>
       <UIContent headerSize={'88px'} >
-        {Array.from({length: 60}).map((_, index) => 
-          <p>Element {index}</p>
+        {Array.from({length: 10}).map((_, index) => 
+          <UIListItem key={index}>
+            Elemento nº {index}
+          </UIListItem>
         )}
       </UIContent>
     </React.Fragment>

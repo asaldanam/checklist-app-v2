@@ -10076,6 +10076,16 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-ripple@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-ripple/-/react-ripple-0.1.0.tgz#234dd80d45ac46a197884bb0a2509833a43b03aa"
+  integrity sha1-I03YDUWsRqGXiEuwolCYM6Q7A6o=
+
+react-ripples@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-ripples/-/react-ripples-2.2.1.tgz#bab529eb10e06f7e660561d97e2442a38b9f4687"
+  integrity sha512-TfLjgZICQlsYCN2iX4fdeZNjoDzhJVC7r+R3irqyaNvCtWezouS9j+sE+nwSk747irtV8RKRDHmwMmsNBOw8Qg==
+
 react-router-dom@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"
