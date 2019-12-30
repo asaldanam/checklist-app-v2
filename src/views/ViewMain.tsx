@@ -32,11 +32,13 @@ const ViewSignIn: React.FC = () => {
         </animated.div>
       </UIHeader>
       <UIContent headerSize={'88px'} >
-        {Array.from({length: 10}).map((_, index) => 
-          <UIListItem key={index}>
-            Elemento nº {index}
-          </UIListItem>
-        )}
+        <Box pt={4}>
+          {Array.from({length: 10}).map((_, index) => 
+            <UIListItem key={index} id={index} onCheck={(id) => console.log(id)}>
+              Elemento nº {index}
+            </UIListItem>
+          )}
+        </Box>
       </UIContent>
     </React.Fragment>
   );

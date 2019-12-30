@@ -4,8 +4,10 @@ import { animated, useSpring } from 'react-spring';
 import { getIconClassName } from '@uifabric/styling';
 
 interface Props {
+  id: any;
   children?: any;
   checked?: boolean;
+  onCheck?: any;
 }
 
 const UIListItem: React.FC<Props> = (props: Props) => {
@@ -29,11 +31,19 @@ const UIListItem: React.FC<Props> = (props: Props) => {
   const animListItem = useSpring({
     delay: 600,
     opacity: checked ? '0' : '1',
+    transform: `scaleY(${checked ? '0' : '1'})`,
     height: checked ? '0px' : '48px'
   })
 
+  const eventChecked = () => {
+    setChecked(state => !state);
+    setTimeout(() => {
+      props.onCheck(props.id);
+    }, 1000)
+  }
+
   return (
-    <ListItem style={animListItem} onClick={() => setChecked(state => !state)}>
+    <ListItem style={animListItem} onClick={() => eventChecked()}>
       <Check>
         <InnerCheckCircle style={animInnerCircle} />
         <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('StatusCircleCheckmark')} />
