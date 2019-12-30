@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Flex, Box } from 'reflexbox';
 import UIAnimatedBottomBg from 'ui/UIAnimatedBottomBg/UIAnimatedBottomBg';
 import UIAnimatedLogo from 'ui/UIAnimatedLogo/UIAnimatedLogo';
-import UIButton from 'ui/UIButton/UIButton';
+import UIButton from 'ui/UIButton';
 
 const ViewSignIn: React.FC = () => {
   const history = useHistory();

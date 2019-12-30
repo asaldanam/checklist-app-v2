@@ -31,21 +31,19 @@ const UIToolbar: React.FC<Props> = (props: Props) => {
 
   return (
     <Bar>
-
       {props.onBack && 
-        <Button onClick={() => props.onBack()} style={backIconAnimation} alignLeft={true}>   
+        <LeftButton onClick={() => props.onBack()} style={backIconAnimation}>
           <Icon  className={getIconClassName('ChevronLeftMed')}  fontSize={20} />
-        </Button>
+        </LeftButton>
       }
 
-      <Text style={textAnimation}>Lorem ipsum</Text>
+      <Text style={textAnimation}>{props.children}</Text>
 
       {props.onMenu && 
-        <Button style={menuIconAnimation} alignRight={true}>          
+        <RightButton onClick={() => props.onMenu()} style={menuIconAnimation}>          
           <Icon className={getIconClassName('ListMirrored')}  fontSize={24}/>
-        </Button>
+        </RightButton>
       }
-
     </Bar>
   );
   
@@ -67,7 +65,7 @@ const Text = styled(animated.div)`
   font-weight: bolder;
 `
 
-const Button = styled<any>(animated.button)`
+const Button = styled(animated.button)`  
   transform-origin: right;
   color: white;
   margin: 0;
@@ -81,13 +79,18 @@ const Button = styled<any>(animated.button)`
   align-items: center;
   overflow: hidden;
   border: none;
-  margin-left: ${props => props.alignRight ? 'auto' : 'none'};
-  margin-right: ${props => props.alignLeft ? '12px' : '0px'};
+`
+
+const LeftButton = styled(Button)`
+  margin-right: 12px;
+`
+
+const RightButton = styled(Button)`
+  margin-left: auto;
 `
 
 const Icon = styled<any>(animated.i)<{
   fontSize: number;
-  alignEnd?: boolean;
 }>`
   font-size: ${props => props.fontSize + 'px' || '20px'};
 `;
