@@ -3,9 +3,9 @@ import 'firebase/auth';
 import { useSpring, animated, config as animationConfig } from 'react-spring'
 import { useHistory } from 'react-router-dom';
 import { Flex, Box } from 'reflexbox';
-import UIAnimatedBottomBg from 'ui/UIAnimatedBottomBg/UIAnimatedBottomBg';
-import UIAnimatedLogo from 'ui/UIAnimatedLogo/UIAnimatedLogo';
-import UIButton from 'ui/UIButton';
+import UIAnimatedBottomBg from 'components/UIAnimatedBottomBg/UIAnimatedBottomBg';
+import UIAnimatedLogo from 'components/UIAnimatedLogo/UIAnimatedLogo';
+import UIButton from 'components/UIButton';
 
 const ViewSignIn: React.FC = () => {
   const history = useHistory();

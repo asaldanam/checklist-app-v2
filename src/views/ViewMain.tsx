@@ -1,12 +1,11 @@
 import React from 'react';
 import 'firebase/auth';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import { Box } from 'reflexbox';
-import UIHeader from 'ui/UIHeader';
-import UIToolbar from 'ui/UIToolbar/UIToolbar';
-import UIInput from 'ui/UIInput/UIInput';
-import UIContent from 'ui/UIContent';
+import UIHeader from 'components/UIHeader';
+import UIToolbar from 'components/UIToolbar/UIToolbar';
+import UIInput from 'components/UIInput/UIInput';
+import UIContent from 'components/UIContent';
 import { useSpring, animated, config } from 'react-spring';
 
 const ViewSignIn: React.FC = () => {
@@ -36,10 +35,6 @@ const ViewSignIn: React.FC = () => {
           <p>Element {index}</p>
         )}
       </UIContent>
-      <div>
-        <Link to="/">Sign ins</Link>
-        <button onClick={history.goBack}>Back</button>
-      </div>
     </React.Fragment>
   );
 };

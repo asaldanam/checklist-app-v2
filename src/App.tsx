@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import 'App.scss';
 import { BrowserRouter as Router, Route, Switch, withRouter, RouteComponentProps } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
-import UIRouterAnimations from 'ui/UIRouterAnimations/UIRouterAnimations';
+import UIRouterAnimations from 'components/UIRouterAnimations/UIRouterAnimations';
 
 import ViewSignIn from './views/ViewSignIn'
 import ViewMain from './views/ViewMain'
