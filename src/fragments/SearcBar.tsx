@@ -22,7 +22,7 @@ const SearchBar: React.FC = () => {
     }
     valueChangeDelay.current = setTimeout(() => {
       if (value.length >= 3 || value === '') {
-        setFilter({filter: value})
+        setFilter({filter: value.toLoweCase()})
       }
     }, 400)
   }
