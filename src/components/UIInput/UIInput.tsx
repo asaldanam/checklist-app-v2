@@ -3,18 +3,21 @@ import styled from 'styled-components';
 
 interface Props {
   fullWidth?: boolean;
+  onChange?: any;
 } 
 
 const UIInput: React.FC<Props> = (props: Props) => {
+  
   return (
     <InputField 
       placeholder={'Busca un producto'}
       width={'100%'}
+      onChange={(e) => props.onChange(e.target.value)}
     />
   );
 };
 
-export default UIInput;
+export default React.memo(UIInput, (prev, next) => true );
 
 const InputField = styled<any>('input')`
   -webkit-appearance: none;

@@ -26,7 +26,7 @@ const ViewSignIn: React.FC = () => {
     <Box className='g-bg-pri' height='100%'>
       <Flex style={{zIndex: 2, position: 'relative'}} height='100%' flexDirection='column' alignItems='stretch'>
         
-        <animated.div style={titleAnimation} >
+        <animated.div style={{...titleAnimation, willChange: 'opacity, transform'}} >
           <Box height='2.75rem' className="g-title" mt={3} mb={2}>
             Lista de la compra
           </Box>
@@ -36,7 +36,7 @@ const ViewSignIn: React.FC = () => {
 
         <Box mt='auto' mb={7}>
           
-          <animated.div style={buttonAnimation}>
+          <animated.div style={{...buttonAnimation, willChange: 'opacity, transform'}}>
             <Flex flexDirection='row' justifyContent='center' mb={3}>
               <UIButton onClick={() => history.push('/main')} type={'google'}>
                 Acceder con Google
@@ -44,7 +44,7 @@ const ViewSignIn: React.FC = () => {
             </Flex>
           </animated.div>
 
-          <animated.div style={buttonAnimation}>
+          <animated.div style={{...buttonAnimation, willChange: 'opacity, transform'}}>
             <Flex flexDirection='row' justifyContent='center'>
               <UIButton onClick={() => history.push('/main')} type={'facebook'}>
                 Acceder con Facebook

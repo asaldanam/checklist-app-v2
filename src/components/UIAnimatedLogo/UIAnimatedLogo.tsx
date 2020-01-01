@@ -25,7 +25,7 @@ const UIAnimatedLogo: React.FC<Props> = (props: Props) => {
 
   return (
     <Flex flexDirection='row' justifyContent='center'>
-      <animated.img src={logo} style={animation}></animated.img>
+      <animated.img src={logo} style={{...animation, willChange: 'opacity, transform'}}></animated.img>
     </Flex>
   )
 };

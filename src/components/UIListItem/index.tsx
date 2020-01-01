@@ -4,15 +4,15 @@ import { animated, useSpring } from 'react-spring';
 import { getIconClassName } from '@uifabric/styling';
 
 interface Props {
-  id: any;
-  children?: any;
-  checked?: boolean;
-  onCheck?: any;
+  text: string;
+  id: string;
+  checked: boolean;
+  onChecked?: any;
 }
 
-const UIListItem: React.FC<Props> = (props: Props) => {
+const UIListItem: React.FC<Props> = (props) => {
 
-  const [checked, setChecked] = useState(false)
+  const [checked, setCheck] = useState(props.checked)
 
   const animInnerCircle = useSpring({
     transform: `scale(${checked ? '1' : '0.3'})`,
@@ -35,34 +35,30 @@ const UIListItem: React.FC<Props> = (props: Props) => {
     height: checked ? '0px' : '48px'
   })
 
-  const eventChecked = () => {
-    setChecked(state => !state);
-    setTimeout(() => {
-      props.onCheck(props.id);
-    }, 1000)
-  }
+  console.log('UIListItem', props);
 
   return (
-    <ListItem style={animListItem} onClick={() => eventChecked()}>
+    <ListItem onClick={() => {setCheck(true); props.onChecked(props.id)}} style={animListItem}>
       <Check>
         <InnerCheckCircle style={animInnerCircle} />
         <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('StatusCircleCheckmark')} />
       </Check>
       
       <Text>
-        {props.children}
+        {props.text}
         <TextLine style={animTextLine} />
       </Text>
     </ListItem>
   );
 };
 
-export default UIListItem;
+export default React.memo(UIListItem);
 
 const ListItem = styled<any>(animated.div)`
   height: 48px;
   width: 100%;
   padding: 0 1.5rem;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -107,6 +103,10 @@ const CheckIcon = styled<any>(animated.i)`
 const Text = styled<any>('div')`
   font-size: 15px;
   position: relative;
+  padding-bottom: 3px;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `
 
 const TextLine = styled<any>(animated.div)`

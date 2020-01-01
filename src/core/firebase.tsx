@@ -13,7 +13,6 @@ const firebaseConfig = {
   measurementId: "G-JS88FCTED2"
 };
 
-
 export const initFirebase = () => firebase.initializeApp(firebaseConfig);
 export const initFirestore = () => firebase.firestore().enablePersistence()
   .then((response) => {
@@ -24,5 +23,27 @@ export const initFirestore = () => firebase.firestore().enablePersistence()
   });
 
 export const fire = {
-  loginWithGoogle: () => firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+
+  getList: (listId: string) => firebase.firestore()
+    .collection('Lists')
+    .doc(listId)
+    .collection('Products')
+    .where('onList', '==', true),
+
+  loginWithGoogle: () => firebase
+    .auth()
+    .signInWithRedirect(new firebase.auth.GoogleAuthProvider()),
+
+  updateItem: (listId: string, itemId: string, state: boolean) => firebase.firestore()
+    .collection('Lists')
+    .doc(listId)
+    .collection('Products')
+    .doc(itemId)
+    .update({'onList': state}),
+
+  addProduct: (listId: string, product: any) => firebase.firestore()
+    .collection('Lists')
+    .doc(listId)
+    .collection('Products')
+    .add(product)
 }

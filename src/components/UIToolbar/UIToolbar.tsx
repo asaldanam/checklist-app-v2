@@ -32,15 +32,15 @@ const UIToolbar: React.FC<Props> = (props: Props) => {
   return (
     <Bar>
       {props.onBack && 
-        <LeftButton onClick={() => props.onBack()} style={backIconAnimation}>
+        <LeftButton onClick={() => props.onBack()} style={{...backIconAnimation, willChange: 'opacity, transform'}}>
           <Icon  className={getIconClassName('ChevronLeftMed')}  fontSize={20} />
         </LeftButton>
       }
 
-      <Text style={textAnimation}>{props.children}</Text>
+      <Text style={{...textAnimation, willChange: 'opacity, transform'}}>{props.children}</Text>
 
       {props.onMenu && 
-        <RightButton onClick={() => props.onMenu()} style={menuIconAnimation}>          
+        <RightButton onClick={() => props.onMenu()} style={{...menuIconAnimation, willChange: 'opacity, transform'}}>          
           <Icon className={getIconClassName('ListMirrored')}  fontSize={24}/>
         </RightButton>
       }
