@@ -24,11 +24,23 @@ export const initFirestore = () => firebase.firestore().enablePersistence()
 
 export const fire = {
 
-  getList: (listId: string) => firebase.firestore()
-    .collection('Lists')
-    .doc(listId)
-    .collection('Products')
-    .where('onList', '==', true),
+  // getList: (listId: string) => {
+  //   return firebase.firestore()
+  //   .collection('Lists')
+  //   .doc(listId)
+  //   .collection('Products')
+  //   .where('onList', '==', true)
+  // },
+
+  getProductList: (listId: string, searchBy: string) => {
+    const productsStore = firebase.firestore()
+      .collection('Lists')
+      .doc(listId)
+      .collection('Products')
+    return searchBy 
+      ? productsStore.where('tags', 'array-contains', searchBy)
+      : productsStore.where('onList', '==', true);
+  },
 
   loginWithGoogle: () => firebase
     .auth()

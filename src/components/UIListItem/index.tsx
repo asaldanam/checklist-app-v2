@@ -35,10 +35,8 @@ const UIListItem: React.FC<Props> = (props) => {
     height: checked ? '0px' : '48px'
   })
 
-  console.log('UIListItem', props);
-
   return (
-    <ListItem onClick={() => {setCheck(true); props.onChecked(props.id)}} style={animListItem}>
+    <ListItem onClick={() => {setCheck(true); props.onChecked([props.id, props.checked])}} style={animListItem}>
       <Check>
         <InnerCheckCircle style={animInnerCircle} />
         <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('StatusCircleCheckmark')} />

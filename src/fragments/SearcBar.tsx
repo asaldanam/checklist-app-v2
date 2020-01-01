@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { config, useSpring, animated } from 'react-spring';
 import UIInput from 'components/UIInput/UIInput';
 import { Box } from 'reflexbox';
@@ -7,6 +7,7 @@ import useGlobalFilter from 'core/filterContext';
 const SearchBar: React.FC = () => {
 
   const [filter, setFilter] = useGlobalFilter();
+  const valueChangeDelay = useRef<any>()
 
   const searchAnimation = useSpring({
     config: config.wobbly,
@@ -16,7 +17,14 @@ const SearchBar: React.FC = () => {
   })
 
   const handleChange = (value) => {
-    setFilter({filter: value})
+    if (valueChangeDelay?.current) {
+      clearTimeout(valueChangeDelay.current);
+    }
+    valueChangeDelay.current = setTimeout(() => {
+      if (value.length >= 3 || value === '') {
+        setFilter({filter: value})
+      }
+    }, 400)
   }
 
   return (
