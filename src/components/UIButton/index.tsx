@@ -39,7 +39,7 @@ const Button = styled.button`
   margin: 0;
   border: none;
   outline: none;
-  height: 48px;
+  height: 47px;
   padding: 0 1.5rem;
   min-width: 220px;
   border-radius: 1000px;
