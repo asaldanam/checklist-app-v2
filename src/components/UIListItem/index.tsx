@@ -56,7 +56,10 @@ const UIListItem: React.FC<Props> = (props) => {
   })
 
   return (
-    <ListItem onClick={() => {setCheck(true); props.onChecked([props.id, props.checked])}} style={props.type === 'list' ? animListItem : animProductItem}>
+    <ListItem 
+      onClick={() => {setCheck(true); props.onChecked([props.id, props.checked])}} 
+      style={props.type === 'list' ? animListItem : animProductItem}
+    >
       {props.type === 'list' && 
         <Check style={animOuterCircle}>
           <InnerCheckCircle style={animInnerCircle} />
