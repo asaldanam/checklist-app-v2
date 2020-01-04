@@ -2,21 +2,25 @@ import React from 'react';
 import 'firebase/auth';
 import { useHistory } from 'react-router-dom'
 import UIHeader from 'components/UIHeader';
-import UIToolbar from 'components/UIToolbar/UIToolbar';
 import UIContent from 'components/UIContent';
-import SearchBar from 'fragments/SearcBar';
-import List from 'fragments/List';
+// import UIToolbar from 'components/UIToolbar/UIToolbar';
+// import SearchBar from 'fragments/SearcBar';
+// import List from 'fragments/List';
+
+const LazyToolbar = React.lazy(() => import('components/UIToolbar/UIToolbar'))
+const LazySearchBar = React.lazy(() => import('fragments/SearcBar'))
+const LazyList = React.lazy(() => import('fragments/List'))
 
 const ViewSignIn: React.FC = () => {
   const history = useHistory();
   return (
     <React.Fragment>
       <UIHeader convexEnd>
-        <UIToolbar onMenu={() => history.goBack()}> Mi lista </UIToolbar>
-        <SearchBar />
+        <LazyToolbar onMenu={() => history.goBack()}> Mi lista </LazyToolbar>
+        <LazySearchBar />
       </UIHeader>
       <UIContent headerSize={'88px'} >
-        <List />
+        <LazyList />
       </UIContent>
     </React.Fragment>
   );

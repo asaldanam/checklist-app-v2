@@ -37,21 +37,25 @@ export const fire = {
       .collection('Lists')
       .doc(listId)
       .collection('Products')
-    return searchBy 
-      ? productsStore.where('tags', 'array-contains', searchBy)
-      : productsStore.where('onList', '==', true);
+    return Boolean(searchBy) 
+      ? productsStore
+        // .where('onList', '==', false)
+        .where('tags', 'array-contains', searchBy)
+      : productsStore
+        .where('onList', '==', true);
   },
 
   loginWithGoogle: () => firebase
     .auth()
     .signInWithRedirect(new firebase.auth.GoogleAuthProvider()),
 
-  updateItem: (listId: string, itemId: string, state: boolean) => firebase.firestore()
-    .collection('Lists')
+  updateItem: (listId: string, itemId: string, state: boolean) => {
+    return firebase.firestore().collection('Lists')
     .doc(listId)
     .collection('Products')
     .doc(itemId)
-    .update({'onList': state}),
+    .update({onList: state})
+  },
 
   addProduct: (listId: string, product: any) => firebase.firestore()
     .collection('Lists')

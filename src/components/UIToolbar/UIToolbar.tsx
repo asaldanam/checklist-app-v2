@@ -12,19 +12,19 @@ interface Props {
 const UIToolbar: React.FC<Props> = (props: Props) => {
 
   const menuIconAnimation = useSpring({
-    delay: 650,
+    delay: 250,
     from: { opacity: 0, transform: 'scaleX(0)' },
     to: { opacity: 1, transform: 'scaleX(1)' }
   })
 
   const backIconAnimation = useSpring({
-    delay: 650,
+    delay: 250,
     from: { opacity: 0, transform: 'translateX(-8px)' },
     to: { opacity: 1, transform: 'translateX(0)' }
   })
 
   const textAnimation = useSpring({
-    delay: 750,
+    delay: 350,
     from: { opacity: 0, transform: 'translateX(-12px)' },
     to: { opacity: 1, transform: 'translateX(0)' }
   })

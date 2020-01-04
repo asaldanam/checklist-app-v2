@@ -40,7 +40,7 @@ const Header = styled<any>(animated.header)`
 
 const Top = styled<any>(Box)`
   position: absolute;
-  background-color: #ffb300;
+  background-color: #ff8484;
   color: white;
   z-index: 11;
   width: 100%;
@@ -57,7 +57,7 @@ const ConvexEndContainer = styled<any>('div')`
 
 const ConvexEnd = styled<any>('div')`
   position: absolute;
-  background-color: #ffb300;
+  background-color: #ff8484;
   border-radius: 50%;
   height: 6rem;
   width: 150%;
