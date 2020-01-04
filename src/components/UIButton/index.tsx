@@ -39,19 +39,20 @@ const Button = styled.button`
   margin: 0;
   border: none;
   outline: none;
-  height: 56px;
+  height: 48px;
   padding: 0 1.5rem;
   min-width: 220px;
   border-radius: 1000px;
   display: flex;
   align-items: center;
+  justify-content: center;
   box-shadow: 0px 10px 20px 0px #4C407C22;
 `
 
 const ButtonPrimary = styled(Button)`
   font-weight: bolder;
   font-size: 14px;
-  background-color: $color-sec;
+  background-color: #62B379;
   text-transform: uppercase;
   color: white;
 `
@@ -61,6 +62,7 @@ const ButtonGoogle = styled(Button)`
   background-color: white;
   color: #6a6e74;
   min-width: 260px;
+  justify-content: start;
 `
 
 const ButtonFacebook = styled(Button)`
@@ -68,6 +70,7 @@ const ButtonFacebook = styled(Button)`
   background-color: #3b5998;
   color: white;
   min-width: 260px;
+  justify-content: start;
 `
 
 const SocialLogo = styled.img`

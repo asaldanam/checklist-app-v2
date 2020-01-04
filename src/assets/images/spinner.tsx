@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SpinnerLoading = () => 
+const SpinnerLoading = () => 
   <div>
     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
       <g id="input/Ω/icon/loading" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -9,3 +9,6 @@ export const SpinnerLoading = () =>
       </g>
     </svg>
   </div>
+
+
+export default SpinnerLoading

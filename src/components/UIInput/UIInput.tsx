@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { getIconClassName } from '@uifabric/styling';
 import { animated, useSpring } from 'react-spring';
 // import spinner from 'assets/images/input-loading.svg';
-import { SpinnerLoading } from 'assets/images/spinner';
+import SpinnerLoading from 'assets/images/spinner';
 
 const UIInput: React.FC<any> = ({value, loading, onChangeValue}) => {
 
@@ -16,7 +16,7 @@ const UIInput: React.FC<any> = ({value, loading, onChangeValue}) => {
     <FormField>
       
       <InputField 
-        placeholder={'Agrega un producto a la lista...'}
+        placeholder={'Busca un producto...'}
         width={'100%'}
         value={value}
         onChange={(e) => onChangeValue(e.target.value)}
@@ -47,7 +47,7 @@ const FormField = styled.div`
 const InputField = styled<any>('input')`
   -webkit-appearance: none;
   font-size: 16px;
-  color: #383151;
+  /* color: #383151; */
   padding: 15px 1.5rem;
   box-sizing: border-box;
   border-radius: 10px;

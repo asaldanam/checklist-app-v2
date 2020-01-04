@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const NotFound = () => 
+const NotFound = () => 
   <React.Fragment>
     <svg width="167px" height="88px" viewBox="0 0 167 88" version="1.1">
         <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -23,3 +23,5 @@ export const NotFound = () =>
         </g>
     </svg>
   </React.Fragment>
+
+export default NotFound

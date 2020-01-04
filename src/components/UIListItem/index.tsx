@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring, config } from 'react-spring';
 import { getIconClassName } from '@uifabric/styling';
 
 interface Props {
@@ -15,6 +15,10 @@ const UIListItem: React.FC<Props> = (props) => {
 
   const [checked, setCheck] = useState(props.checked || false)
   useEffect(() => { setCheck(props.checked) }, [props.checked]) 
+
+  const animOuterCircle = useSpring({
+    borderColor: checked ? '#62B379' : '#222'
+  })
 
   const animInnerCircle = useSpring({
     transform: `scale(${checked ? '1' : '0.3'})`,
@@ -32,7 +36,12 @@ const UIListItem: React.FC<Props> = (props) => {
   
   const animAddIcon = useSpring({
     transform: checked ? 'rotate(0deg)' : 'rotate(45deg)',
-    // color: checked ? 'white' : '#62B379'
+    opacity: checked ? '0' : '1'
+  })
+  
+  const animCheckProduct = useSpring({
+    transform: checked ? 'rotate(0deg)' : 'rotate(45deg)',
+    opacity: checked ? '1' : '0'
   })
 
   const animListItem = useSpring({
@@ -43,16 +52,22 @@ const UIListItem: React.FC<Props> = (props) => {
   })
 
   const animProductItem = useSpring({
-    backgroundColor: checked ? '#62B37922' : 'white'
+    color: checked ? '#62B379' : '#222'
   })
 
   return (
     <ListItem onClick={() => {setCheck(true); props.onChecked([props.id, props.checked])}} style={props.type === 'list' ? animListItem : animProductItem}>
       {props.type === 'list' && 
-        <Check>
+        <Check style={animOuterCircle}>
           <InnerCheckCircle style={animInnerCircle} />
-          <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('StatusCircleCheckmark')} />
+          <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('CheckMark')} />
         </Check>
+      }
+      {props.type === 'product' && 
+        <Icon>
+          <AddIcon style={animAddIcon} className={getIconClassName('ChromeClose')} />
+          <CheckIcon style={animCheckProduct} className={getIconClassName('CheckMark')} />
+        </Icon>
       }
       <Text>
         {props.text}
@@ -60,11 +75,6 @@ const UIListItem: React.FC<Props> = (props) => {
           <TextLine style={animTextLine} />
         }
       </Text>
-      {props.type === 'product' && 
-        <Add>
-          <AddIcon style={animAddIcon} className={getIconClassName('ChromeClose')} />
-        </Add>
-      }
     </ListItem>
   );
 };
@@ -93,6 +103,7 @@ const Icon = styled<any>('div')`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 0.5rem;
 `
 
 const InnerCheckCircle = styled<any>(animated.div)`
@@ -105,27 +116,20 @@ const InnerCheckCircle = styled<any>(animated.div)`
 `
 
 const Check = styled<any>(Icon)`
-  border-color: #62B379;
-  font-size: 17px;
-  margin-right: 0.5rem;
+  border-color: #a4a2ad;
+  font-size: 14px;
   color: white;
 `
 
-const Add = styled<any>(Icon)`
-  font-size: 10px;
-  margin-left: auto;
-`
-
 const CheckIcon = styled<any>(animated.i)`
-  position: relative;
+  position: absolute;
   z-index: 2;
-  left: 1px;
-  bottom: 1px;
 `
 
 const AddIcon = styled<any>(animated.i)`
+  position: absolute;
   color: #62B379;
-  position: relative;
+  font-size: 10px;
   z-index: 2;
   /* top: 1px; */
   transform: rotate(45deg);

@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { useEffect, useState } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBf52CODpzzjWfacjoe_JuIRv8kbCO1xqE",
@@ -62,4 +63,37 @@ export const fire = {
     .doc(listId)
     .collection('Products')
     .add(product)
+}
+
+
+export function useProductList(filter) {
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(true)
+  const [items, setItems] = useState({query: '', list: []})
+
+  useEffect(() => {
+
+    const ref = firebase
+      .firestore()
+      .collection('Lists')
+      .doc('lzCiykDQBPMjr1rCBCZK')
+      .collection('Products')
+
+    const query = filter 
+      ? ref.where('tags', 'array-contains', filter)
+      : ref.where('onList', '==', true);
+
+    const subscription = query
+      .onSnapshot(snapshot => { 
+        setLoading(false)
+        setItems({
+          query: filter ? 'product' : 'list',
+          list: snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        }) 
+      }, err => { setError(err) } )
+
+    return () => subscription()
+  }, [filter])
+
+  return [ items, loading, error ]
 }
