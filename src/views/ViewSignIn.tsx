@@ -6,6 +6,7 @@ import { Flex, Box } from 'reflexbox';
 import UIAnimatedBottomBg from 'components/UIAnimatedBottomBg/UIAnimatedBottomBg';
 import UIAnimatedLogo from 'components/UIAnimatedLogo/UIAnimatedLogo';
 import UIButton from 'components/UIButton';
+import Theme from 'core/theme';
 
 const ViewSignIn: React.FC = () => {
   const history = useHistory();
@@ -23,7 +24,7 @@ const ViewSignIn: React.FC = () => {
 
   return (
 
-    <Box className='g-bg-pri' height='100%'>
+    <Box style={{background: Theme.colors.secondary}} height='100%'>
       <Flex style={{zIndex: 2, position: 'relative'}} height='100%' flexDirection='column' alignItems='stretch'>
         
         <animated.div style={{...titleAnimation, willChange: 'opacity, transform'}} >
