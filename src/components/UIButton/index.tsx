@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import googleLogo from 'assets/images/logo-google.svg'
 import facebookLogo from 'assets/images/logo-facebook.svg'
+import Theme from 'core/theme';
 
 interface Props {
   children?: any;
   onClick: any;
-  type?: 'primary' | 'google' | 'facebook' | undefined
+  type?: 'primary' | 'google' | 'facebook' | 'link' | undefined
 }
 
 const UIButton: React.FC<Props> = (props: Props) => {
@@ -16,6 +17,11 @@ const UIButton: React.FC<Props> = (props: Props) => {
         <ButtonPrimary onClick={() => props.onClick()}>
           <span>{props.children}</span>
         </ButtonPrimary>
+      }
+      {(props.type === 'link' || props.type === undefined) &&
+        <ButtonLink onClick={() => props.onClick()}>
+          <span>{props.children}</span>
+        </ButtonLink>
       }
       {props.type === 'google' &&
         <ButtonGoogle onClick={() => props.onClick()}>
@@ -52,9 +58,18 @@ const Button = styled.button`
 const ButtonPrimary = styled(Button)`
   font-weight: bolder;
   font-size: 14px;
-  background-color: #62B379;
+  background-color: ${Theme.colors.primary};
   text-transform: uppercase;
   color: white;
+`
+
+const ButtonLink = styled(Button)`
+  font-weight: bold;
+  font-size: 16px;
+  heigth: 32px;
+  box-shadow: none;
+  background-color: transparent;
+  color: ${Theme.colors.primary};
 `
 
 const ButtonGoogle = styled(Button)`

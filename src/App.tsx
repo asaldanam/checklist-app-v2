@@ -7,6 +7,7 @@ import UIRouterAnimations from 'components/UIRouterAnimations/UIRouterAnimations
 import ViewSignIn from './views/ViewSignIn'
 import ViewMain from './views/ViewMain'
 import { FilterProvider } from 'core/filterContext';
+import Theme from 'core/theme';
 
 const Routes = withRouter(({location, history}: RouteComponentProps) => {
   return (
@@ -25,14 +26,8 @@ const Routes = withRouter(({location, history}: RouteComponentProps) => {
 
 const App: React.FC = () => {
 
-  const theme = {
-    space: [
-      0, 8, 16, 32, 40, 48, 56, 64, 72, 80, 88
-    ],
-  }
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
     <FilterProvider>
 
       <Suspense fallback={<div>Loading...</div>}>

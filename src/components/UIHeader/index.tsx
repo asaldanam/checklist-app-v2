@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from 'reflexbox';
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components';
+import Theme from 'core/theme';
 
 interface Props {
   children?: any;
@@ -40,7 +41,7 @@ const Header = styled<any>(animated.header)`
 
 const Top = styled<any>(Box)`
   position: absolute;
-  background-color: #ff8484;
+  background-color: ${Theme.colors.secondary};
   color: white;
   z-index: 11;
   width: 100%;
@@ -57,7 +58,7 @@ const ConvexEndContainer = styled<any>('div')`
 
 const ConvexEnd = styled<any>('div')`
   position: absolute;
-  background-color: #ff8484;
+  background-color: ${Theme.colors.secondary};
   border-radius: 50%;
   height: 6rem;
   width: 150%;

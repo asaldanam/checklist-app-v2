@@ -69,10 +69,12 @@ const Title = styled<any>(animated.div)`
   font-size: 20px;
   font-weight: 800;
   margin-top: 16px;
+  letter-spacing: -0.5;
 `
 
 const Subtitle = styled<any>(animated.div)`
   color: #a4a2ad;
   margin-top: 8px;
-  line-height: 1.5
+  line-height: 1.5;
+  letter-spacing: -0.5px;
 `

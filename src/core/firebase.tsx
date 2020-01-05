@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase, { firestore } from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -46,23 +46,51 @@ export const fire = {
         .where('onList', '==', true);
   },
 
-  loginWithGoogle: () => firebase
+  loginWithGoogle: () => {
+    return firebase
     .auth()
-    .signInWithRedirect(new firebase.auth.GoogleAuthProvider()),
+    .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+  },
 
-  updateItem: (listId: string, itemId: string, state: boolean) => {
+  checkItem: (listId: string, itemId: string, state: boolean) => {
     return firebase.firestore().collection('Lists')
     .doc(listId)
     .collection('Products')
     .doc(itemId)
-    .update({onList: state})
+    .update({checked: state})
   },
 
-  addProduct: (listId: string, product: any) => firebase.firestore()
+  toListItem: (listId: string, itemId: string, state: boolean) => {
+    return firebase.firestore().collection('Lists')
+    .doc(listId)
+    .collection('Products')
+    .doc(itemId)
+    .update({onList: state, checked: false})
+  },
+
+  addProduct: (listId: string, product: any) => {
+    return firebase.firestore()
     .collection('Lists')
     .doc(listId)
     .collection('Products')
     .add(product)
+  },
+
+  updateAllProducts: (listId: string, itemsIds: string[], updateObject: any) => {
+    let batch = firebase.firestore().batch();
+    itemsIds.forEach(itemId => {
+      const docRef = firebase.firestore()
+        .collection('Lists')
+        .doc(listId)
+        .collection('Products')
+        .doc(itemId)
+      batch.update(docRef, updateObject)
+    })
+    batch.commit()
+      .then(data => console.log('batch success', data))
+      .catch(err => console.log('batch error', err))
+  }
+
 }
 
 

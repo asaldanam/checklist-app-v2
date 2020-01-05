@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { animated, useSprings } from 'react-spring';
-import { Box } from 'reflexbox';
+import { Box, Flex } from 'reflexbox';
 import UIListItem from 'components/UIListItem';
 import UIEmptyState from 'components/UIEmptyState';
 import useGlobalFilter from 'core/filterContext';
@@ -21,12 +21,23 @@ const List: React.FC = () => {
     to: { opacity: 1 }
   })));
 
-  const handleCheck = useCallback(([id, state]) => {
-    const onList = Boolean(filter) && !state;
-    filter 
-      ? fire.updateItem('lzCiykDQBPMjr1rCBCZK', id, onList)
-      : setTimeout(() => { fire.updateItem('lzCiykDQBPMjr1rCBCZK', id, onList) }, 1000)
-  }, [filter])
+  const handleCheck = useCallback(([id, checked]) => {
+    fire.checkItem('lzCiykDQBPMjr1rCBCZK', id, !checked)
+  }, [])
+
+  const handleToList = useCallback(([id, onList]) => {
+    fire.toListItem('lzCiykDQBPMjr1rCBCZK', id, !onList)
+  }, [])
+
+  const handleClearAll = useCallback(() => {
+    const itemsIds = items.map((item: any) => item.id);
+    fire.updateAllProducts('lzCiykDQBPMjr1rCBCZK', itemsIds, 
+      {
+        onList: false,
+        checked: false
+      }
+    );
+  }, [items])
 
   const handleAdd = useCallback(() => {
     console.log(filter);
@@ -37,6 +48,7 @@ const List: React.FC = () => {
     });
     setFilter('')
   }, [filter, setFilter])
+
 
   console.log({items, loading, error, query});
   
@@ -51,7 +63,7 @@ const List: React.FC = () => {
                 id={item.id} 
                 text={item.name} 
                 type={query}
-                checked={query === 'product' ? item.onList : !item.onList}
+                checked={item.checked}
                 onChecked={handleCheck}
               />
             </animated.div>
@@ -64,7 +76,7 @@ const List: React.FC = () => {
                 text={item.name} 
                 type={query}
                 checked={item.onList}
-                onChecked={handleCheck}
+                onChecked={handleToList}
               />
             </div>
           )}
@@ -84,6 +96,12 @@ const List: React.FC = () => {
           >
             <UIButton onClick={handleAdd}>Añadir a la lista</UIButton>
           </UIEmptyState>
+
+          { items.length > 0 &&
+            <Flex justifyContent={'center'} mt={1}>
+              <UIButton onClick={handleClearAll} type={'link'}>Desmarcar todo</UIButton>
+            </Flex>
+          }
 
         </React.Fragment>
       </Box>

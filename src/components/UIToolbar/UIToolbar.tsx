@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getIconClassName } from '@uifabric/styling';
 import { useSpring, animated } from 'react-spring';
+import Theme from 'core/theme';
 
 interface Props {
   onBack?: any;
@@ -63,6 +64,7 @@ const Bar = styled.div`
 const Text = styled(animated.div)`
   font-size: 20px;
   font-weight: bolder;
+  color: white;
 `
 
 const Button = styled(animated.button)`  

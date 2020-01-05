@@ -4,13 +4,9 @@ import { getIconClassName } from '@uifabric/styling';
 import { animated, useSpring } from 'react-spring';
 // import spinner from 'assets/images/input-loading.svg';
 import SpinnerLoading from 'assets/images/spinner';
+import Theme from 'core/theme';
 
 const UIInput: React.FC<any> = ({value, loading, onChangeValue}) => {
-
-  // const animAction = useSpring({
-  //   transform: `rotate(${value ? 0 : -30}deg)`,
-  //   opacity: value ? 1 : 0
-  // })
   
   return (
     <FormField>
@@ -47,7 +43,7 @@ const FormField = styled.div`
 const InputField = styled<any>('input')`
   -webkit-appearance: none;
   font-size: 16px;
-  /* color: #383151; */
+  color: ${Theme.colors.black};
   padding: 15px 1.5rem;
   box-sizing: border-box;
   border-radius: 10px;
@@ -55,12 +51,12 @@ const InputField = styled<any>('input')`
   box-shadow: 0 2px 10px 0 rgba(18, 50, 82, 0.12);
   outline: none;
   width: ${props => props.width};
-  &::placeholder {
-    color: #a4a2ad;
-  }
+  font-family: ${Theme.fonts.main};
+  letter-spacing: -0.25px;
+  &::placeholder { color: #a4a2ad; }
 `
 
-const Append = styled<any>(animated.button)`
+const Append = styled<any>('button')`
   border: none;
   margin: 0;
   padding: 0;
@@ -71,12 +67,13 @@ const Append = styled<any>(animated.button)`
   font-size: 12px;
   background: transparent;  
   top: calc(50% - 12px);
-  right: 8px;
+  right: 14px;
   color: #A4A2AD;
 `
 
 const AppendClose = styled<any>(Append)`
   padding-top: 3px;
+  color: ${Theme.colors.primary}
 `
 const spinnerAnimation = keyframes`
   from { transform: rotate(0deg); }

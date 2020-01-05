@@ -4,7 +4,7 @@
     <title>input/Ω/icon/loading</title>
     <desc>Created with Sketch.</desc>
     <g id="input/Ω/icon/loading" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <circle id="Oval-Copy" stroke="#FF8484" stroke-width="2" opacity="0.2" cx="12" cy="12" r="7"></circle>
-        <path d="M12,4 C16.418278,4 20,7.581722 20,12 L18,12 C18,8.6862915 15.3137085,6 12,6 L12,4 Z" id="Path" fill="#FF8484" fill-rule="nonzero"></path>
+        <circle id="Oval-Copy" stroke="#62B3AD" stroke-width="2" opacity="0.2" cx="12" cy="12" r="7"></circle>
+        <path d="M12,4 C16.418278,4 20,7.581722 20,12 L18,12 C18,8.6862915 15.3137085,6 12,6 L12,4 Z" id="Path" fill="#62B3AD" fill-rule="nonzero"></path>
     </g>
 </svg>
