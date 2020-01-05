@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { animated, useSpring, config } from 'react-spring';
-import { useDrag, useGesture } from 'react-use-gesture';
+import { useGesture } from 'react-use-gesture';
 import { getIconClassName } from '@uifabric/styling';
 import Theme from 'core/theme';
 
@@ -17,8 +17,8 @@ interface Props {
 const UIListItem: React.FC<Props> = (props) => {
 
   const {onChecked, onDelete, id} = props;
-  const [deleteMode, setDeleteMode] = useState(false)
   const [checked, setCheck] = useState(props.checked || false)
+  const [deleted, setDelete] = useState(false)
   useEffect(() => { setCheck(props.checked) }, [props.checked]) 
 
   const [swipeAnimation, setSwipeAnimation] = useSpring(() => ({ 
@@ -27,46 +27,32 @@ const UIListItem: React.FC<Props> = (props) => {
     backgroundColor: 'white'
   }))
 
-  const bind = useDrag(({ down, movement: [mx] }) => {
-
-    const value = down 
-      ? (mx > 0 ? 0 : mx)
-      : (mx < -96 ? -96 : 0)
-
-    const bg = Math.abs(value) > 0 
-      ? Math.abs(value) <= 96 ? (value/19) + 100 : 95
-      : 100
-
-    const isClick = Math.abs(mx) < 10;
-    if (!down) {
-
-      if (mx === -97 && !deleteMode) {
-        setDeleteMode(true)
-      }
-
-      console.log(deleteMode, Math.abs(mx))
-      if (isClick && !deleteMode) {
-        setCheck(true); 
-        onChecked([id, props.checked])
-      }
-
-      if (mx === 0) {
-        setDeleteMode(false)
-      } 
+  const bind = useGesture({
+    onDrag: ({ down, movement: [mx] }) => {
+      const value = down 
+        ? mx
+        : (mx < -96 ? -96 : 0)
+      const bg = value < 0 
+        ? value > -96 ? (value/19) + 100 : 95
+        : 100
+      setSwipeAnimation({
+        transform: `translateX(${value}px)`,
+        backgroundColor: `hsl(210, 17%, ${bg}%)`
+      })
+    },
+    onClick: () => {
+      setCheck(true); 
+      onChecked([id, props.checked])
     }
-
-    setSwipeAnimation({
-      transform: `translateX(${value}px)`,
-      backgroundColor: `hsl(210, 17%, ${bg}%)`
-    })
-    
-    }, {
-      bounds: { left: -97, right: 0 },
+  }, {
+    drag: {
+      bounds: { left: -100, right: 0 },
       rubberband: true,
       delay: 1000,
+      axis: 'x',
+      filterTaps: true
     }
-  );
-
+  });
 
   const animOuterCircle = useSpring({
     borderColor: checked ? Theme.colors.secondary : Theme.colors.black
@@ -97,12 +83,14 @@ const UIListItem: React.FC<Props> = (props) => {
   })
 
   const animListItem = useSpring({
+    height: deleted ? '0px' : '56px',
+    opacity: deleted ? '0' : '1',
     ...(props.type === 'list' && {
       color: checked ? Theme.colors.greyDark : Theme.colors.black
     }),
     ...(props.type === 'product' && {
       color: checked ? Theme.colors.secondary : Theme.colors.black
-    })
+    }),
   })
 
   // const [animDelete, playAnimDelete] = useSpring(() => ({
@@ -110,10 +98,12 @@ const UIListItem: React.FC<Props> = (props) => {
   // }))
 
   const handleDelete = useCallback(() => {
+    setDelete(true)
+    setSwipeAnimation({transform: 'translateX(-350px)'})
     setTimeout(() => {
       onDelete(id)
-    }, 1000)
-  }, [onDelete, id])
+    }, 800)
+  }, [setSwipeAnimation, onDelete, id])
 
   console.log('render list item')
 
@@ -149,7 +139,6 @@ const UIListItem: React.FC<Props> = (props) => {
 export default React.memo(UIListItem);
 
 const Wrapper = styled<any>(animated.div)`
-  height: 48px;
   width: 100%;
   position: relative;
 `

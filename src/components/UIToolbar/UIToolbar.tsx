@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { getIconClassName } from '@uifabric/styling';
 import { useSpring, animated } from 'react-spring';
-import Theme from 'core/theme';
 
 interface Props {
   onBack?: any;

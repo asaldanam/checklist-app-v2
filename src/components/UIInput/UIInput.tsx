@@ -1,8 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { getIconClassName } from '@uifabric/styling';
-import { animated, useSpring } from 'react-spring';
-// import spinner from 'assets/images/input-loading.svg';
 import SpinnerLoading from 'assets/images/spinner';
 import Theme from 'core/theme';
 

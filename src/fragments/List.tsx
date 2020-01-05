@@ -10,7 +10,7 @@ import { generateTags } from 'core/utils';
 
 const List: React.FC = () => {
   const [filter, setFilter] = useGlobalFilter();
-  const [collection, loading, error] = useProductList(filter);
+  const [collection] = useProductList(filter);
 
   const items = collection.list;
   const query = collection.query;
@@ -104,7 +104,7 @@ const List: React.FC = () => {
           </UIEmptyState>
 
           { items.length > 0 &&
-            <Flex justifyContent={'center'} mt={1}>
+            <Flex justifyContent={'center'} mt={1} mb={4}>
               <UIButton onClick={handleClearAll} type={'link'}>
                 {query === 'product' && 'Desmarcar todo'}
                 {query === 'list' && 'Borrar lista'}
