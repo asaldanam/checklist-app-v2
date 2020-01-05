@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { animated, useSpring, config } from 'react-spring';
+import { useDrag, useGesture } from 'react-use-gesture';
 import { getIconClassName } from '@uifabric/styling';
 import Theme from 'core/theme';
 
@@ -10,12 +11,62 @@ interface Props {
   type?: string;
   checked?: boolean;
   onChecked?: any;
+  onDelete?: any;
 }
 
 const UIListItem: React.FC<Props> = (props) => {
 
+  const {onChecked, onDelete, id} = props;
+  const [deleteMode, setDeleteMode] = useState(false)
   const [checked, setCheck] = useState(props.checked || false)
   useEffect(() => { setCheck(props.checked) }, [props.checked]) 
+
+  const [swipeAnimation, setSwipeAnimation] = useSpring(() => ({ 
+    config: config.stiff,
+    transform: `translateX(0px)`,
+    backgroundColor: 'white'
+  }))
+
+  const bind = useDrag(({ down, movement: [mx] }) => {
+
+    const value = down 
+      ? (mx > 0 ? 0 : mx)
+      : (mx < -96 ? -96 : 0)
+
+    const bg = Math.abs(value) > 0 
+      ? Math.abs(value) <= 96 ? (value/19) + 100 : 95
+      : 100
+
+    const isClick = Math.abs(mx) < 10;
+    if (!down) {
+
+      if (mx === -97 && !deleteMode) {
+        setDeleteMode(true)
+      }
+
+      console.log(deleteMode, Math.abs(mx))
+      if (isClick && !deleteMode) {
+        setCheck(true); 
+        onChecked([id, props.checked])
+      }
+
+      if (mx === 0) {
+        setDeleteMode(false)
+      } 
+    }
+
+    setSwipeAnimation({
+      transform: `translateX(${value}px)`,
+      backgroundColor: `hsl(210, 17%, ${bg}%)`
+    })
+    
+    }, {
+      bounds: { left: -97, right: 0 },
+      rubberband: true,
+      delay: 1000,
+    }
+  );
+
 
   const animOuterCircle = useSpring({
     borderColor: checked ? Theme.colors.secondary : Theme.colors.black
@@ -46,55 +97,100 @@ const UIListItem: React.FC<Props> = (props) => {
   })
 
   const animListItem = useSpring({
-    // delay: 600,
-    // opacity: checked ? '0' : '1',
-    // transform: `scaleY(${checked ? '0' : '1'})`,
-    // height: checked ? '0px' : '48px'
-    color: checked ? Theme.colors.greyDark : Theme.colors.black
+    ...(props.type === 'list' && {
+      color: checked ? Theme.colors.greyDark : Theme.colors.black
+    }),
+    ...(props.type === 'product' && {
+      color: checked ? Theme.colors.secondary : Theme.colors.black
+    })
   })
 
-  const animProductItem = useSpring({
-    color: checked ? Theme.colors.secondary : Theme.colors.black
-  })
+  // const [animDelete, playAnimDelete] = useSpring(() => ({
+  //   height: '0px'
+  // }))
+
+  const handleDelete = useCallback(() => {
+    setTimeout(() => {
+      onDelete(id)
+    }, 1000)
+  }, [onDelete, id])
+
+  console.log('render list item')
 
   return (
-    <ListItem 
-      onClick={() => {setCheck(true); props.onChecked([props.id, props.checked])}} 
-      style={props.type === 'list' ? animListItem : animProductItem}
-    >
-      {props.type === 'list' && 
-        <Check style={animOuterCircle}>
-          <InnerCheckCircle style={animInnerCircle} />
-          <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('CheckMark')} />
-        </Check>
-      }
-      {props.type === 'product' && 
-        <Icon>
-          <AddIcon style={animAddIcon} className={getIconClassName('ChromeClose')} />
-          <CheckIcon style={animCheckProduct} className={getIconClassName('CheckMark')} />
-        </Icon>
-      }
-      <Text>
-        {props.text}
+    <Wrapper style={animListItem}>
+      <ListItem {...bind()} style={swipeAnimation}>
         {props.type === 'list' && 
-          <TextLine style={animTextLine} />
+          <Check style={animOuterCircle}>
+            <InnerCheckCircle style={animInnerCircle} />
+            <CheckIcon style={{opacity: animCheckIcon.opacity}} className={getIconClassName('CheckMark')} />
+          </Check>
         }
-      </Text>
-    </ListItem>
+        {props.type === 'product' && 
+          <Icon>
+            <AddIcon style={animAddIcon} className={getIconClassName('ChromeClose')} />
+            <CheckIcon style={animCheckProduct} className={getIconClassName('CheckMark')} />
+          </Icon>
+        }
+        <Text>
+          {props.text}
+          {props.type === 'list' && 
+            <TextLine style={animTextLine} />
+          }
+        </Text>
+      </ListItem>
+      <DeleteZone>
+        <DeleteButton onClick={handleDelete}>Eliminar</DeleteButton>
+      </DeleteZone>
+    </Wrapper>
   );
 };
 
 export default React.memo(UIListItem);
 
-const ListItem = styled<any>(animated.div)`
+const Wrapper = styled<any>(animated.div)`
   height: 48px;
+  width: 100%;
+  position: relative;
+`
+
+const ListItem = styled<any>(animated.div)`
+  height: 100%;
   width: 100%;
   padding: 0 1.5rem;
   box-sizing: border-box;
+  position: absolute;
+  z-index: 2;
   display: flex;
   align-items: center;
   overflow: hidden;
   will-change: height;
+`
+
+const DeleteZone = styled.div`
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  right: 0;
+  left: 10%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: ${Theme.colors.error};
+`
+
+const DeleteButton = styled.button`
+  color: white;
+  margin: 0;
+  height: 100%;
+  border: none;
+  background: none;
+  outline: none;
+  width: 96px;
+  font-family: ${Theme.fonts.main};
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const Icon = styled<any>('div')`
@@ -114,7 +210,7 @@ const Icon = styled<any>('div')`
 const InnerCheckCircle = styled<any>(animated.div)`
   background-color: ${Theme.colors.secondary};
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   height: 16px;
   width: 16px;
   border-radius: 50%;
@@ -129,14 +225,14 @@ const Check = styled<any>(Icon)`
 
 const CheckIcon = styled<any>(animated.i)`
   position: absolute;
-  z-index: 2;
+  z-index: 4;
 `
 
 const AddIcon = styled<any>(animated.i)`
   position: absolute;
   color: ${Theme.colors.secondary};
   font-size: 10px;
-  z-index: 2;
+  z-index: 4;
   /* top: 1px; */
   transform: rotate(45deg);
 `

@@ -76,6 +76,15 @@ export const fire = {
     .add(product)
   },
 
+  deleteProduct: (listId: string, itemId: any) => {
+    return firebase.firestore()
+    .collection('Lists')
+    .doc(listId)
+    .collection('Products')
+    .doc(itemId)
+    .delete()
+  },
+
   updateAllProducts: (listId: string, itemsIds: string[], updateObject: any) => {
     let batch = firebase.firestore().batch();
     itemsIds.forEach(itemId => {

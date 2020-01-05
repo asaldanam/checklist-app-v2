@@ -16,9 +16,9 @@ const List: React.FC = () => {
   const query = collection.query;
 
   const animations = useSprings(items.length, items?.map((item: any, index: number) => ({
-    delay: index * 25,
-    from: { opacity: 0 },
-    to: { opacity: 1 }
+    delay: (index + 1) * 25,
+    from: { opacity: 0, transform: 'translateY(10px)', willChange: 'opacity, transform' },
+    to: { opacity: 1, transform: 'translateY(0)' }
   })));
 
   const handleCheck = useCallback(([id, checked]) => {
@@ -49,8 +49,12 @@ const List: React.FC = () => {
     setFilter('')
   }, [filter, setFilter])
 
-
-  console.log({items, loading, error, query});
+  const handleDelete = useCallback((itemId) => {
+    console.log('delete', itemId);
+    fire.deleteProduct('lzCiykDQBPMjr1rCBCZK', itemId)
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }, [])
   
   return (
     <React.Fragment>
@@ -58,27 +62,29 @@ const List: React.FC = () => {
         <React.Fragment>
 
           {items.length > 0 && query === 'list' &&  items.map((item, index) => 
-            <animated.div key={item.id} style={{...animations[index], willChange: 'opacity, transform'}}>
+            <animated.div key={item.id} style={animations[index]}>
               <UIListItem 
                 id={item.id} 
                 text={item.name} 
                 type={query}
                 checked={item.checked}
                 onChecked={handleCheck}
+                onDelete={handleDelete}
               />
             </animated.div>
           )}
 
           {items.length > 0 && query === 'product' && items.map((item, index) => 
-            <div key={item.id}>
+            <animated.div key={item.id} style={animations[index]}>
               <UIListItem 
                 id={item.id} 
                 text={item.name} 
                 type={query}
                 checked={item.onList}
                 onChecked={handleToList}
+                onDelete={handleDelete}
               />
-            </div>
+            </animated.div>
           )}
 
           <UIEmptyState
@@ -99,7 +105,10 @@ const List: React.FC = () => {
 
           { items.length > 0 &&
             <Flex justifyContent={'center'} mt={1}>
-              <UIButton onClick={handleClearAll} type={'link'}>Desmarcar todo</UIButton>
+              <UIButton onClick={handleClearAll} type={'link'}>
+                {query === 'product' && 'Desmarcar todo'}
+                {query === 'list' && 'Borrar lista'}
+              </UIButton>
             </Flex>
           }
 
