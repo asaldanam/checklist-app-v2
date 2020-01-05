@@ -18,7 +18,7 @@ const UIButton: React.FC<Props> = (props: Props) => {
           <span>{props.children}</span>
         </ButtonPrimary>
       }
-      {(props.type === 'link' || props.type === undefined) &&
+      {(props.type === 'link') &&
         <ButtonLink onClick={() => props.onClick()}>
           <span>{props.children}</span>
         </ButtonLink>
@@ -64,9 +64,9 @@ const ButtonPrimary = styled(Button)`
 `
 
 const ButtonLink = styled(Button)`
-  font-weight: bold;
+  font-weight: 500;
   font-size: 16px;
-  heigth: 32px;
+  height: 32px;
   box-shadow: none;
   background-color: transparent;
   color: ${Theme.colors.primary};
