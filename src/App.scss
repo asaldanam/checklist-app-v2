@@ -68,9 +68,13 @@ body {
   max-width: 100%;
   height: 100%;
   max-height: 100%;
+  background-color: #62b3ad;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include not-mobile {
+    background: white;
+  }
 }
 
 .g-app {
