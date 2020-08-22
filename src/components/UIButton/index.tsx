@@ -65,10 +65,14 @@ const ButtonPrimary = styled(Button)`
 
 const ButtonLink = styled(Button)`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bolder;
   height: 32px;
   box-shadow: none;
+  min-width: unset;
   background-color: transparent;
+  background: ${Theme.colors.greyPale};
   color: ${Theme.colors.primary};
 `
 

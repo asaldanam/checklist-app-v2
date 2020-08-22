@@ -51,7 +51,7 @@ const InputField = styled<any>('input')`
   width: ${props => props.width};
   font-family: ${Theme.fonts.main};
   letter-spacing: -0.25px;
-  &::placeholder { color: #a4a2ad; }
+  &::placeholder { color: ${Theme.colors.greyDark}; }
 `
 
 const Append = styled<any>('button')`
@@ -66,7 +66,7 @@ const Append = styled<any>('button')`
   background: transparent;  
   top: calc(50% - 12px);
   right: 14px;
-  color: #A4A2AD;
+  color: ${Theme.colors.greyDark};
 `
 
 const AppendClose = styled<any>(Append)`

@@ -3,8 +3,8 @@ const Theme ={
       main: '"CircularStd", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu'
     },
     colors: {
-      primary: '#ff8484',
-      secondary: '#62b3ad',
+      primary: '#E59200',
+      secondary: '#045E81',
       black: '#333',
       greyDark: '#a4a2ad',
       greyLight: '#d7d4df',

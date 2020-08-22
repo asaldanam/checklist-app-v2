@@ -33,6 +33,8 @@ export const fire = {
   //   .where('onList', '==', true)
   // },
 
+  PROVISIONAL_listId: 'lzCiykDQBPMjr1rCBCZK',
+
   getProductList: (listId: string, searchBy: string) => {
     const productsStore = firebase.firestore()
       .collection('Lists')

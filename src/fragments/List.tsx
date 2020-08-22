@@ -7,6 +7,7 @@ import useGlobalFilter from 'core/filterContext';
 import { fire, useProductList } from 'core/firebase';
 import UIButton from 'components/UIButton';
 import { generateTags } from 'core/utils';
+import UIDeleteBar from 'components/UIDeleteBar';
 
 const List: React.FC = () => {
   const [filter, setFilter] = useGlobalFilter();
@@ -22,16 +23,16 @@ const List: React.FC = () => {
   })));
 
   const handleCheck = useCallback(([id, checked]) => {
-    fire.checkItem('lzCiykDQBPMjr1rCBCZK', id, !checked)
+    fire.checkItem(fire.PROVISIONAL_listId, id, !checked)
   }, [])
 
   const handleToList = useCallback(([id, onList]) => {
-    fire.toListItem('lzCiykDQBPMjr1rCBCZK', id, !onList)
+    fire.toListItem(fire.PROVISIONAL_listId, id, !onList)
   }, [])
 
   const handleClearAll = useCallback(() => {
     const itemsIds = items.map((item: any) => item.id);
-    fire.updateAllProducts('lzCiykDQBPMjr1rCBCZK', itemsIds, 
+    fire.updateAllProducts(fire.PROVISIONAL_listId, itemsIds, 
       {
         onList: false,
         checked: false
@@ -41,7 +42,7 @@ const List: React.FC = () => {
 
   const handleAdd = useCallback(() => {
     console.log(filter);
-    fire.addProduct('lzCiykDQBPMjr1rCBCZK', {
+    fire.addProduct(fire.PROVISIONAL_listId, {
       name: filter,
       onList: true,
       tags: generateTags(filter) 
@@ -51,7 +52,7 @@ const List: React.FC = () => {
 
   const handleDelete = useCallback((itemId) => {
     console.log('delete', itemId);
-    fire.deleteProduct('lzCiykDQBPMjr1rCBCZK', itemId)
+    fire.deleteProduct(fire.PROVISIONAL_listId, itemId)
       .then(data => console.log(data))
       .catch(err => console.log(err))
   }, [])
@@ -104,12 +105,11 @@ const List: React.FC = () => {
           </UIEmptyState>
 
           { items.length > 0 &&
-            <Flex justifyContent={'center'} mt={1} mb={4}>
-              <UIButton onClick={handleClearAll} type={'link'}>
-                {query === 'product' && 'Desmarcar todo'}
-                {query === 'list' && 'Borrar lista'}
-              </UIButton>
-            </Flex>
+            <UIDeleteBar
+              confirm={query === 'list'}
+              deleteTxt={query === 'product' ? 'Desmarcar todo' : 'Borrar lista'}
+              onDelete={handleClearAll}
+            />
           }
 
         </React.Fragment>

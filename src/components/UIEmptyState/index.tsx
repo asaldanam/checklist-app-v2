@@ -4,6 +4,7 @@ import NotFound from 'assets/images/not-found';
 import EmptyBag from 'assets/images/empty-bag';
 import { Flex, Box } from 'reflexbox';
 import { useSpring, animated } from 'react-spring';
+import Theme from 'core/theme';
 
 // const NotFound = React.lazy(() => import('assets/images/not-found'));
 // const EmptyBag = React.lazy(() => import('assets/images/empty-bag'));
@@ -73,7 +74,7 @@ const Title = styled<any>(animated.div)`
 `
 
 const Subtitle = styled<any>(animated.div)`
-  color: #a4a2ad;
+  color: ${Theme.colors.greyDark};
   margin-top: 8px;
   line-height: 1.5;
   letter-spacing: -0.5px;

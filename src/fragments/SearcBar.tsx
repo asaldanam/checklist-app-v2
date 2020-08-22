@@ -10,7 +10,7 @@ const SearchBar: React.FC = () => {
 
   const [filter, setFilter] = useGlobalFilter();
   const [value, setValue] = useState(filter || '');
-  const [, firebaseLoading] = useCollection(fire.getProductList('lzCiykDQBPMjr1rCBCZK', filter));
+  const [, firebaseLoading] = useCollection(fire.getProductList(fire.PROVISIONAL_listId, filter));
   const [loading, setLoading] = useState(false);
   const valueChangeDelay = useRef<any>()
 

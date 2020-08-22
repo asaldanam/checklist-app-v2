@@ -188,7 +188,7 @@ const Icon = styled<any>('div')`
   box-sizing: border-box;
   border-radius: 50%;
   position: relative;
-  top: -1px;
+  /* top: -1px; */
   border: 1px solid transparent;
   display: flex;
   justify-content: center;
@@ -206,7 +206,7 @@ const InnerCheckCircle = styled<any>(animated.div)`
 `
 
 const Check = styled<any>(Icon)`
-  border-color: #a4a2ad;
+  border-color: ${Theme.colors.greyDark};
   font-size: 14px;
   color: white;
   top: 0px;
