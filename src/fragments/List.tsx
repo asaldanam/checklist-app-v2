@@ -1,16 +1,18 @@
-import React, { useCallback } from 'react';
-import { animated, useSprings } from 'react-spring';
-import { Box, Flex } from 'reflexbox';
-import UIListItem from 'components/UIListItem';
-import UIEmptyState from 'components/UIEmptyState';
-import useGlobalFilter from 'core/filterContext';
-import { fire, useProductList } from 'core/firebase';
 import UIButton from 'components/UIButton';
-import { generateTags } from 'core/utils';
 import UIDeleteBar from 'components/UIDeleteBar';
+import UIEmptyState from 'components/UIEmptyState';
+import UIListItem from 'components/UIListItem';
+import { fire, useProductList } from 'core/firebase';
+import { setFilterAction } from 'core/redux';
+import { generateTags } from 'core/utils';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { animated, useSprings } from 'react-spring';
+import { Box } from 'reflexbox';
 
 const List: React.FC = () => {
-  const [filter, setFilter] = useGlobalFilter();
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.data.filter);
   const [collection] = useProductList(filter);
 
   const items = collection.list;
@@ -47,8 +49,8 @@ const List: React.FC = () => {
       onList: true,
       tags: generateTags(filter) 
     });
-    setFilter('')
-  }, [filter, setFilter])
+    dispatch(setFilterAction(''))
+  }, [filter, dispatch])
 
   const handleDelete = useCallback((itemId) => {
     console.log('delete', itemId);

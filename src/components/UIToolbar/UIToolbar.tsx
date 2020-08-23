@@ -41,7 +41,7 @@ const UIToolbar: React.FC<Props> = (props: Props) => {
 
       {props.onMenu && 
         <RightButton onClick={() => props.onMenu()} style={{...menuIconAnimation, willChange: 'opacity, transform'}}>          
-          <Icon className={getIconClassName('ListMirrored')}  fontSize={24}/>
+          <Icon className={getIconClassName('Leave')}  fontSize={20}/>
         </RightButton>
       }
     </Bar>

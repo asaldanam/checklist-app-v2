@@ -105,8 +105,6 @@ const UIListItem: React.FC<Props> = (props) => {
     }, 800)
   }, [setSwipeAnimation, onDelete, id])
 
-  console.log('render list item')
-
   return (
     <Wrapper style={animListItem}>
       <ListItem {...bind()} style={swipeAnimation}>

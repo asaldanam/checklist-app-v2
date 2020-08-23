@@ -1,14 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { config, useSpring, animated } from 'react-spring';
 import UIInput from 'components/UIInput/UIInput';
-import { Box } from 'reflexbox';
-import useGlobalFilter from 'core/filterContext';
 import { fire } from 'core/firebase';
+import { setFilterAction } from 'core/redux';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { animated, config, useSpring } from 'react-spring';
+import { Box } from 'reflexbox';
 
 const SearchBar: React.FC = () => {
-
-  const [filter, setFilter] = useGlobalFilter();
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.data.filter);
+  const setFilter = (filter) => dispatch(setFilterAction(filter));
   const [value, setValue] = useState(filter || '');
   const [, firebaseLoading] = useCollection(fire.getProductList(fire.PROVISIONAL_listId, filter));
   const [loading, setLoading] = useState(false);
@@ -32,14 +34,14 @@ const SearchBar: React.FC = () => {
     setValue(newValue);
 
     if (newValue === '') {
-      setFilter({filter: newValue.toLowerCase()})
+      setFilter(newValue.toLowerCase())
       setLoading(false);
     } 
     
     else if (newValue.length >= 3) {
       setLoading(true);
       valueChangeDelay.current = setTimeout(() => {
-        setFilter({filter: newValue.toLowerCase()})
+        setFilter(newValue.toLowerCase())
         setLoading(false);
       }, 600)
     }

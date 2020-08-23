@@ -25,14 +25,6 @@ export const initFirestore = () => firebase.firestore().enablePersistence()
 
 export const fire = {
 
-  // getList: (listId: string) => {
-  //   return firebase.firestore()
-  //   .collection('Lists')
-  //   .doc(listId)
-  //   .collection('Products')
-  //   .where('onList', '==', true)
-  // },
-
   PROVISIONAL_listId: 'lzCiykDQBPMjr1rCBCZK',
 
   getProductList: (listId: string, searchBy: string) => {
@@ -49,9 +41,24 @@ export const fire = {
   },
 
   loginWithGoogle: () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
     return firebase
-    .auth()
-    .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+      .auth()
+      .signInWithRedirect(provider)
+  },
+
+  signOut: () => {
+    return firebase.auth().signOut()
+  },
+
+  onUserChange: (callback) => {
+    return firebase.auth().onAuthStateChanged(callback);
+  },
+
+  getCurrentUser: () => {
+    return firebase
+      .auth()
+      .currentUser
   },
 
   checkItem: (listId: string, itemId: string, state: boolean) => {

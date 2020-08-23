@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { getIconClassName } from '@uifabric/styling';
 import SpinnerLoading from 'assets/images/spinner';
 import Theme from 'core/theme';
 
 const UIInput: React.FC<any> = ({value, loading, onChangeValue}) => {
+
+  const inputRef = useRef(null);
   
   return (
     <FormField>
@@ -12,12 +14,16 @@ const UIInput: React.FC<any> = ({value, loading, onChangeValue}) => {
       <InputField 
         placeholder={'Busca un producto...'}
         width={'100%'}
+        ref={inputRef}
         value={value}
         onChange={(e) => onChangeValue(e.target.value)}
       />
 
       {value && !loading && 
-        <AppendClose onClick={() => onChangeValue('')}>
+        <AppendClose onClick={() => {
+          onChangeValue('');
+          inputRef.current.focus();
+        }}>
           <i className={getIconClassName('ChromeClose')}/>
         </AppendClose>
       }

@@ -1,5 +1,6 @@
 import React from 'react';
 // import styles from './UIAnimatedLogo.module.scss';
+import styled from 'styled-components';
 import { useSpring, animated, config } from 'react-spring'
 import logo from 'assets/images/shopping-basket.svg';
 import { Flex } from 'reflexbox';
@@ -25,9 +26,13 @@ const UIAnimatedLogo: React.FC<Props> = (props: Props) => {
 
   return (
     <Flex flexDirection='row' justifyContent='center' mt={3}>
-      <animated.img src={logo} style={{...animation, willChange: 'opacity, transform'}}></animated.img>
+      <Logo src={logo} style={{...animation, willChange: 'opacity, transform'}}></Logo>
     </Flex>
   )
 };
 
 export default UIAnimatedLogo;
+
+const Logo = styled(animated.img)`
+  width: 50%;
+`
